@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SMS Gateway</string>
+
+    <!-- Gateway Control -->
+    <string name="pref_enable_gateway_off">Disable Gateway</string>
+    <string name="pref_enable_gateway_on">Enable Gateway</string>
+
+    <!-- E-mail Account -->
+    <string name="pref_header_email_account">E-mail account</string>
+    <string name="pref_email_account_server">E-mail Account Server</string>
+    <string name="pref_email_account_server_default_value">mail.domain.tld</string>
+    <string name="pref_email_account_username">E-mail Account Username</string>
+    <string name="pref_email_account_username_default_value">username</string>
+    <string name="pref_email_account_password">E-mail Account Password</string>
+    <string name="pref_email_account_password_default_value">toplevelsecret</string>
+
+    <!-- Gateway Engine -->
+    <string name="pref_header_gateway_engine">Gateway Engine</string>
+    <string name="pref_gateway_engine_poll_frequency">Poll Frequency</string>
+    <string name="pref_gateway_engine_poll_frequency_default_value">120</string>
+
+</resources>

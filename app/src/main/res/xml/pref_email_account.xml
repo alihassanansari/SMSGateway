@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="@string/pref_email_account_server_default_value"
+        android:key="email_account_server"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_email_account_server" />
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_email_account_username_default_value"
+        android:key="email_account_username"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_email_account_username" />
+
+    <EditTextPreference
+        android:inputType="textPassword"
+        android:defaultValue="@string/pref_email_account_password_default_value"
+        android:key="email_account_password"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_email_account_password" />
+
+</PreferenceScreen>
