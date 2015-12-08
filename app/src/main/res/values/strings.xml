@@ -14,9 +14,10 @@
     <string name="pref_email_account_password">E-mail Account Password</string>
     <string name="pref_email_account_password_default_value">toplevelsecret</string>
 
-    <!-- Gateway Engine -->
-    <string name="pref_header_gateway_engine">Gateway Engine</string>
-    <string name="pref_gateway_engine_poll_frequency">Poll Frequency</string>
-    <string name="pref_gateway_engine_poll_frequency_default_value">120</string>
+    <!-- Gateway Service -->
+    <string name="gateway_service_label">Gateway Service</string>
+    <string name="pref_header_gateway_service">Gateway Service</string>
+    <string name="pref_gateway_service_poll_frequency">Poll Frequency</string>
+    <string name="pref_gateway_service_poll_frequency_default_value">120</string>
 
 </resources>

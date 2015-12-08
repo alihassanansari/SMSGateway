@@ -20,12 +20,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
-
-import hr.evorion.smsgateway.GatewayEngine;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -149,13 +146,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue == true) new GatewayEngine().execute(
-                        new String[] {
-                                ((EditTextPreference) findPreference("email_account_server")).getText(),
-                                ((EditTextPreference) findPreference("email_account_username")).getText(),
-                                ((EditTextPreference) findPreference("email_account_password")).getText()
-                        }
-                );
+                Intent startServiceIntent = new Intent(getApplicationContext(), GatewayService.class);
+                startServiceIntent.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
+                startServiceIntent.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());
+                startServiceIntent.putExtra("password", ((EditTextPreference) findPreference("email_account_password")).getText());
+
+                if (newValue == true)
+                    startService(startServiceIntent);
+                else
+                    stopService(startServiceIntent);
                 return true;
             }
         });
@@ -210,16 +209,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // Add 'data and sync' preferences, and a corresponding header.
         fakeHeader = new PreferenceCategory(this);
-        fakeHeader.setTitle(R.string.pref_header_gateway_engine);
+        fakeHeader.setTitle(R.string.pref_header_gateway_service);
         getPreferenceScreen().addPreference(fakeHeader);
-        addPreferencesFromResource(R.xml.pref_gateway_engine);
+        addPreferencesFromResource(R.xml.pref_gateway_service);
 
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("email_account_server"));
         bindPreferenceSummaryToValue(findPreference("email_account_username"));
-        bindPreferenceSummaryToValue(findPreference("gateway_engine_poll_frequency"));
+        bindPreferenceSummaryToValue(findPreference("gateway_service_poll_frequency"));
 
         setGatewaySwitchListener(findPreference("gateway_switch"));
     }
@@ -324,7 +323,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_gateway_engine);
+            addPreferencesFromResource(R.xml.pref_gateway_service);
             setHasOptionsMenu(true);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences

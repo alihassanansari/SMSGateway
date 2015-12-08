@@ -9,11 +9,11 @@
     <header
         android:fragment="hr.evorion.smsgateway.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/pref_header_gateway_engine" />
+        android:title="@string/pref_header_gateway_service" />
 
     <header
         android:fragment="hr.evorion.smsgateway.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
-        android:title="@string/pref_header_gateway_engine" />
+        android:title="@string/pref_header_gateway_service" />
 
 </preference-headers>
