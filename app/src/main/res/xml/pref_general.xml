@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="gateway_switch"
         android:switchTextOff="@string/pref_enable_gateway_off"
         android:switchTextOn="@string/pref_enable_gateway_on" />

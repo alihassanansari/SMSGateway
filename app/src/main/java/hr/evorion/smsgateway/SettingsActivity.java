@@ -21,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * as a master/detail two-pane view on tablets. When true, a single pane is
      * shown on tablets.
      */
+
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
     /**
      * A preference value change listener that updates the preference's summary
@@ -146,15 +148,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+
                 Intent startServiceIntent = new Intent(getApplicationContext(), GatewayService.class);
+                startServiceIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
                 startServiceIntent.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
                 startServiceIntent.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());
                 startServiceIntent.putExtra("password", ((EditTextPreference) findPreference("email_account_password")).getText());
+                startServiceIntent.putExtra("poll", ((EditTextPreference) findPreference("gateway_service_poll_frequency")).getText());
 
-                if (newValue == true)
+                if ((Boolean)newValue == true) {
                     startService(startServiceIntent);
-                else
+                }
+                else {
                     stopService(startServiceIntent);
+                    Toast.makeText(getApplicationContext(), "stopped", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
@@ -184,6 +192,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         setupSimplePreferencesScreen();
     }
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "stopped", Toast.LENGTH_SHORT).show();
+        Intent startServiceIntent = new Intent(getApplicationContext(), GatewayService.class);
+        startServiceIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        startServiceIntent.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
+        startServiceIntent.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());
+        startServiceIntent.putExtra("password", ((EditTextPreference) findPreference("email_account_password")).getText());
+        startServiceIntent.putExtra("poll", ((EditTextPreference) findPreference("gateway_service_poll_frequency")).getText());
+        startService(startServiceIntent);
+        super.onDestroy();
+    }
+
 
     /**
      * Shows the simplified settings UI if the device configuration if the
