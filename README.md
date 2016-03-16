@@ -8,7 +8,7 @@ CONFIGURATION:
 
 Just setup the email account from which to forward the e-mails to SMS in the interface of SMSGateway.
 
-NOTICE: forwarded e-mails will be deleted.
+NOTICE: all e-mails from the configured account will be deleted.
 
 
 RULES:
