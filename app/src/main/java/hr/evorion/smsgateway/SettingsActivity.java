@@ -15,10 +15,10 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
-import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -149,20 +149,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-                Intent startServiceIntent = new Intent(getApplicationContext(), GatewayService.class);
-                startServiceIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-                startServiceIntent.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
-                startServiceIntent.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());
-                startServiceIntent.putExtra("password", ((EditTextPreference) findPreference("email_account_password")).getText());
-                startServiceIntent.putExtra("poll", ((EditTextPreference) findPreference("gateway_service_poll_frequency")).getText());
+                Intent gatewayIntentService = new Intent(getApplicationContext(), GatewayIntentService.class);
+                gatewayIntentService.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+                gatewayIntentService.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
+                gatewayIntentService.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());
+                gatewayIntentService.putExtra("password", ((EditTextPreference) findPreference("email_account_password")).getText());
+                gatewayIntentService.putExtra("pollFrequency", ((EditTextPreference) findPreference("gateway_service_poll_frequency")).getText());
 
-                if ((Boolean)newValue == true) {
-                    startService(startServiceIntent);
-                }
+                if ((Boolean)newValue == true)
+                    startService(gatewayIntentService);
                 else {
-                    stopService(startServiceIntent);
-                    Toast.makeText(getApplicationContext(), "stopped", Toast.LENGTH_SHORT).show();
+                    Intent broadcastIntent = new Intent("hr.evorion.smsgateway.STOP_GATEWAY_SERVICE");
+                    sendBroadcast(broadcastIntent);
                 }
+
                 return true;
             }
         });
@@ -196,7 +196,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public void onDestroy() {
         Toast.makeText(getApplicationContext(), "stopped", Toast.LENGTH_SHORT).show();
-        Intent startServiceIntent = new Intent(getApplicationContext(), GatewayService.class);
+        Intent startServiceIntent = new Intent(getApplicationContext(), GatewayIntentService.class);
         startServiceIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         startServiceIntent.putExtra("server", ((EditTextPreference) findPreference("email_account_server")).getText());
         startServiceIntent.putExtra("username", ((EditTextPreference) findPreference("email_account_username")).getText());

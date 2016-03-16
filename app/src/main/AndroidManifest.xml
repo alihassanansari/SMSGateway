@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".EvorionBroadcastReceiver" >
+        <receiver android:name=".BootBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -35,7 +35,7 @@
         </receiver>
 
         <service
-            android:name=".GatewayService"
+            android:name=".GatewayIntentService"
             android:exported="true">
         </service>
     </application>
