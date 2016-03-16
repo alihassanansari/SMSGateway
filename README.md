@@ -1,12 +1,15 @@
 # SMS Gateway
 
-Simple E-mail to SMS forwarding utility with a battery saver built-in. Best intended use would be simple SMS sending from PHP for example:
+Simple E-mail to SMS forwarding utility with a battery saver built-in. Best intended use would be simple SMS sending from PHP/Python/Shell/MUA for example:
 
 mail('sms@domain.tld', '0981122334', 'SMS message here');
 
-Just setup the email account from which to forward the e-mails to SMS.
+CONFIGURATION:
+
+Just setup the email account from which to forward the e-mails to SMS in the interface of SMSGateway.
 
 NOTICE: forwarded e-mails will be deleted.
+
 
 RULES:
 
